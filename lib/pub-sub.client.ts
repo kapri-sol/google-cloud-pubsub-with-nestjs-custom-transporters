@@ -5,16 +5,24 @@ export class CloudPubSubClient extends ClientProxy {
   private pubsub: PubSub;
   private topic: Topic;
 
+  /**
+   * Creates an instance of CloudPubSubClient.
+   * @param {string} projectId
+   * @param {string} topicName
+   * @memberof CloudPubSubClient
+   */
   constructor(private readonly projectId: string, private readonly topicName: string) {
     super();
 
     this.pubsub = new PubSub({
       projectId: this.projectId,
     });
+    console.log('construct');
   }
 
   async connect(): Promise<any> {
     this.topic = await this.pubsub.topic(this.topicName);
+    console.log('client connect');
   }
 
   async close() {

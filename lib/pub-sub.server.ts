@@ -25,7 +25,6 @@ export class CloudPubSubServer extends Server implements CustomTransportStrategy
 
     this.subscription.on('message', (message: Message) => {
       this.handle(message);
-      message.ack();
     });
 
     callback();
@@ -38,6 +37,9 @@ export class CloudPubSubServer extends Server implements CustomTransportStrategy
   private async handle(message: Message) {
     const { pattern, data } = this.convertMessageData(message.data);
 
+    console.log('pattern', pattern);
+    console.log('data', data);
+
     const handler = this.getHandlerByPattern(pattern);
 
     if (!handler) {
@@ -45,6 +47,8 @@ export class CloudPubSubServer extends Server implements CustomTransportStrategy
     }
 
     await handler(data);
+
+    message.ack();
   }
 
   private convertMessageData(messageData: Message['data']) {
