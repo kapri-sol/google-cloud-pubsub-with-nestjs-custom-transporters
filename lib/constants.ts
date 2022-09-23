@@ -1,7 +1,11 @@
-import { FactoryProvider } from '@nestjs/common';
-import { CloudPubSubClient } from './pub-sub.client';
+import { ReadPacket } from '@nestjs/microservices';
 
 export const PUBSUB_CLIENT = 'PUBSUB_CLIENT';
+
+export type PubSubMessage = {
+  pattern: string;
+  data: string;
+};
 
 export type CloudPubSubClientOptions = {
   projectId: string;
