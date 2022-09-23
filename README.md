@@ -2,7 +2,7 @@
 
 Google Cloud Pub Sub을 NestJS Custom transporters를 이용해서 사용해보자.
 
-## example
+## Example
 
 ### Server
 
@@ -78,8 +78,10 @@ export class AppService {
 
 ## Reference
 
+- [@google-cloud/pubsub](https://www.npmjs.com/package/@google-cloud/pubsub)
+
 - [Google Cloud PubSub NodeJS Docs](https://cloud.google.com/nodejs/docs/reference/pubsub/latest)
 
-- [NestJS Custom transporters](https://docs.nestjs.com/microservices/custom-transport)
+- [NestJS Microservices](https://docs.nestjs.com/microservices/basics)
 
-- [npm @google-cloud/pubsub](https://www.npmjs.com/package/@google-cloud/pubsub)
+- [NestJS Custom transporters](https://docs.nestjs.com/microservices/custom-transport)
