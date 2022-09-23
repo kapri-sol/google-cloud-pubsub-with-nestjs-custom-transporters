@@ -1,10 +1,21 @@
 {
   "name": "google-cloud-pubsub-with-nestjs-custom-transporters",
-  "version": "0.1.2",
-  "description": "",
-  "author": "",
+  "version": "0.3.0",
+  "description": "Using Google Cloud Pub Sub with NestJS Custom transporters",
+  "author": "moonwhale",
   "private": false,
   "license": "UNLICENSED",
+  "keywords": [
+    "google cloud",
+    "pubsub",
+    "nestjs",
+    "microsevices",
+    "custom-transporters"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/kapri-sol/Cloud-Pub-Sub-wit-NestJS"
+  },
   "main": "dist/index.js",
   "scripts": {
     "prebuild": "rimraf dist",
