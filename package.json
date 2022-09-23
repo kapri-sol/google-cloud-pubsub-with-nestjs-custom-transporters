@@ -14,7 +14,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/kapri-sol/Cloud-Pub-Sub-wit-NestJS"
+    "url": "https://github.com/kapri-sol/google-cloud-pubsub-with-nestjs-custom-transporters"
   },
   "main": "dist/index.js",
   "scripts": {
