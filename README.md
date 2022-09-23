@@ -44,9 +44,36 @@ export class AppController {
 ### Client
 
 ```typescript
-const publisher = new CloudPubSubClient('cloud-turing-2020-01-02', 'test_event');
+// app.module.ts
+import { Module } from '@nestjs/common';
+import { AppService } from './app.service';
+import { CloudPubSubClientModule } from 'google-cloud-pubsub-with-nestjs-custom-transporters';
 
-publisher.send('echo', 'haha');
+@Module({
+  imports: [
+    CloudPubSubClientModule.register({
+      projectId: 'your-project-id',
+      topicName: 'your-topic-name',
+    }),
+  ],
+  providers: [AppService],
+})
+export class AppModule {}
+```
+
+```typescript
+import { Inject, Injectable } from '@nestjs/common';
+import { ClientProxy } from '@nestjs/microservices';
+import { PUBSUB_CLIENT } from 'google-cloud-pubsub-with-nestjs-custom-transporters';
+
+@Injectable()
+export class AppService {
+  constructor(@Inject(PUBSUB_CLIENT) private readonly pubsubClient: ClientProxy) {}
+
+  async publish() {
+    this.pubsubClient.send('your-pattern', 'hello').subscribe(console.log);
+  }
+}
 ```
 
 ## Reference
