@@ -1,5 +1,6 @@
 import { PubSub, Topic } from '@google-cloud/pubsub';
 import { ClientProxy, ReadPacket, WritePacket } from '@nestjs/microservices';
+import { CloudPubSubClientOptions } from './constants';
 
 export class CloudPubSubClient extends ClientProxy {
   private pubsub: PubSub;
@@ -11,18 +12,16 @@ export class CloudPubSubClient extends ClientProxy {
    * @param {string} topicName
    * @memberof CloudPubSubClient
    */
-  constructor(private readonly projectId: string, private readonly topicName: string) {
+  constructor(private readonly options: CloudPubSubClientOptions) {
     super();
 
     this.pubsub = new PubSub({
-      projectId: this.projectId,
+      projectId: this.options.projectId,
     });
-    console.log('construct');
   }
 
   async connect(): Promise<any> {
-    this.topic = await this.pubsub.topic(this.topicName);
-    console.log('client connect');
+    this.topic = await this.pubsub.topic(this.options.topicName);
   }
 
   async close() {
