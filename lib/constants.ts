@@ -6,6 +6,8 @@ export const PUBSUB_CLIENT = 'PUBSUB_CLIENT';
 export type CloudPubSubClientOptions = {
   projectId: string;
   topicName: string;
+  teardown?: () => void;
+  dispatch?: (packet: ReadPacket<any>) => void;
 };
 
 export const PubSubClientFactory = (options: CloudPubSubClientOptions): FactoryProvider => ({
