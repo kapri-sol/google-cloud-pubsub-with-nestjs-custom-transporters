@@ -10,13 +10,16 @@ Google Cloud Pub Sub을 NestJS Custom transporters를 이용해서 사용해보�
 //main.ts
 
 import { NestFactory } from '@nestjs/core';
-import { MicroserviceOptions } from '@nestjs/microservices';
 import { AppModule } from './app.module';
-import { CloudPubSubServer } from './lib/pub-sub.server';
+import { MicroserviceOptions } from '@nestjs/microservices';
+import { CloudPubSubServer } from 'google-cloud-pubsub-with-nestjs-custom-transporters';
 
 async function bootstrap() {
   const app = await NestFactory.createMicroservice<MicroserviceOptions>(AppModule, {
-    strategy: new CloudPubSubServer('cloud-turing-2020-01-02', 'subcription-name'),
+    strategy: new CloudPubSubServer({
+      projectId: 'your-project-id',
+      subscriptionName: 'your-subscription-name',
+    }),
   });
   await app.listen();
 }
@@ -30,15 +33,10 @@ import { Controller } from '@nestjs/common';
 import { MessagePattern, Payload } from '@nestjs/microservices';
 
 @Controller()
-export class MessageController {
-  @MessagePattern('echo')
-  hello(@Payload() data: object) {
-    console.log(`echo: ${data}`);
-  }
-
-  @MessagePattern('test')
-  hello2(@Payload() data: object) {
-    console.log(`test ${data}`);
+export class AppController {
+  @MessagePattern('your-pattern')
+  subscribeMessage(@Payload() payload) {
+    console.log('your-pattern', payload);
   }
 }
 ```
