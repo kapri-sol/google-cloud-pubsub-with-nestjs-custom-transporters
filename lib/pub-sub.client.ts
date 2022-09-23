@@ -28,12 +28,12 @@ export class CloudPubSubClient extends ClientProxy {
     await this.pubsub.close();
   }
 
-  protected async dispatchEvent<T = any>(packet: ReadPacket<any>): Promise<T> {
-    console.log('event to dispatch :', packet);
+  async dispatchEvent<T = any>(packet: ReadPacket<any>): Promise<T> {
+    await this.options.dispatch(packet);
     return;
   }
 
-  protected publish(packet: ReadPacket<any>, callback: (packet: WritePacket<any>) => void): () => void {
+  publish(packet: ReadPacket<any>, callback: (packet: WritePacket<any>) => void): () => void {
     this.topic.publishMessage({
       data: Buffer.from(
         JSON.stringify({
@@ -47,6 +47,6 @@ export class CloudPubSubClient extends ClientProxy {
       response: packet.data,
     });
 
-    return () => console.log('teardown');
+    return this.options.teardown;
   }
 }
