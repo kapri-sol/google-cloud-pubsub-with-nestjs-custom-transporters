@@ -10,7 +10,7 @@ export type CloudPubSubClientOptions = {
   dispatch?: (packet: ReadPacket<any>) => void;
 };
 
-export const PubSubClientFactory = (options: CloudPubSubClientOptions): FactoryProvider => ({
-  provide: PUBSUB_CLIENT,
-  useFactory: () => new CloudPubSubClient(options.projectId, options.topicName),
-});
+export type CloudPubSubServerOptions = {
+  projectId: string;
+  subscriptionName: string;
+};
