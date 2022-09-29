@@ -1,6 +1,6 @@
 {
   "name": "google-cloud-pubsub-with-nestjs-custom-transporters",
-  "version": "0.3.1",
+  "version": "0.4.6",
   "description": "Using Google Cloud Pub Sub with NestJS Custom transporters",
   "author": "moonwhale",
   "private": false,
