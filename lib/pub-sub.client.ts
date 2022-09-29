@@ -18,6 +18,9 @@ export class CloudPubSubClient extends ClientProxy {
     this.pubsub = new PubSub({
       projectId: this.options.projectId,
     });
+
+    this.initializeSerializer({});
+    this.initializeDeserializer({});
   }
 
   async connect(): Promise<any> {
@@ -31,7 +34,17 @@ export class CloudPubSubClient extends ClientProxy {
   }
 
   async dispatchEvent<T = any>(packet: ReadPacket<any>): Promise<T> {
-    await this.options.dispatch(packet);
+    const pattern = this.normalizePattern(packet.pattern);
+
+    const serializedPacket = this.serializer.serialize({
+      pattern,
+      data: packet.data,
+    });
+
+    await this.topic.publishMessage({
+      data: Buffer.from(JSON.stringify(serializedPacket)),
+    });
+
     return;
   }
 
