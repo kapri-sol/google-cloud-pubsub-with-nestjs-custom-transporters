@@ -73,6 +73,10 @@ export class AppService {
   async publish() {
     this.pubsubClient.send('your-pattern', 'hello').subscribe(console.log);
   }
+
+  async dispatch() {
+    this.pubsubClient.emit('your-pattern', 'hello');
+  }
 }
 ```
 
