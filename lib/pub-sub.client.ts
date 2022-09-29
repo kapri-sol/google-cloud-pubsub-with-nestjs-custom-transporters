@@ -21,7 +21,9 @@ export class CloudPubSubClient extends ClientProxy {
   }
 
   async connect(): Promise<any> {
-    this.topic = await this.pubsub.topic(this.options.topicName);
+    if (!this.topic) {
+      this.topic = await this.pubsub.topic(this.options.topicName);
+    }
   }
 
   async close() {
