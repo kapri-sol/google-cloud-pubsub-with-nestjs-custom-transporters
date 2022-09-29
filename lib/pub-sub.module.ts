@@ -10,7 +10,9 @@ export class CloudPubSubClientModule {
         {
           provide: PUBSUB_CLIENT,
           useFactory: async () => {
-            return new CloudPubSubClient(options);
+            const pubsubClient = new CloudPubSubClient(options);
+            await pubsubClient.connect();
+            return pubsubClient;
           },
         },
       ],
